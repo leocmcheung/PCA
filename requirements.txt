@@ -1,0 +1,10 @@
+uvicorn
+fastapi
+pillow
+# torch
+transformers
+matplotlib
+opencv-python-headless
+scikit-learn
+imageio
+python-multipart
