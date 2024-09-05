@@ -18,16 +18,6 @@ async def predict_image(file: UploadFile = File(...)):
     extract_output = extract_average_colors(image)
 
     colored_mask = extract_output[0]
-    skin = extract_output[1]
-    average_skin_color = extract_output[2]
-    average_brows_color = extract_output[3]
-    average_hair_color = extract_output[4]
-    average_lip_color = extract_output[5]
-    average_eye_color = extract_output[6]
-
-    skin_tone_classification = predict_skin_tone_classification(average_skin_color)
-
-    predicted_season = predict_season(average_eye_color, average_hair_color, average_lip_color, average_brows_color)
 
     img_io = io.BytesIO()
     colored_mask.save(img_io, 'JPEG')
@@ -45,7 +35,6 @@ async def predict_colour(file: UploadFile = File(...)):
 
     extract_output = extract_average_colors(image)
 
-    colored_mask = extract_output[0]
     skin = extract_output[1]
     average_skin_color = extract_output[2]
     average_brows_color = extract_output[3]
@@ -57,9 +46,6 @@ async def predict_colour(file: UploadFile = File(...)):
 
     predicted_season = predict_season(average_eye_color, average_hair_color, average_lip_color, average_brows_color)
 
-    img_io = io.BytesIO()
-    colored_mask.save(img_io, 'JPEG')
-    img_io.seek(0)
 
     # save image and send back to streamlit
 
@@ -74,10 +60,10 @@ async def predict_colour(file: UploadFile = File(...)):
                                  ,"average_lip_color":average_lip_color
                                  ,"average_eye_color":average_eye_color})
 
-    img_io = io.BytesIO() # Create an in-memory bytes buffer.
-    flipped_image.save(img_io, 'PNG') # Save the flipped image to the buffer in JPEG format.
-    img_io.seek(0)# Move the file pointer to the beginning of the buffer.
-    return StreamingResponse(img_io, media_type="image/png") #officially type for JPEG images
+    # img_io = io.BytesIO() # Create an in-memory bytes buffer.
+    # flipped_image.save(img_io, 'PNG') # Save the flipped image to the buffer in JPEG format.
+    # img_io.seek(0)# Move the file pointer to the beginning of the buffer.
+    # return StreamingResponse(img_io, media_type="image/png") #officially type for JPEG images
 
 
 # @app.post("/flip-image")
